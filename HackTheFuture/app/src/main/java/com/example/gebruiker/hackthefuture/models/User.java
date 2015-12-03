@@ -6,7 +6,12 @@ package com.example.gebruiker.hackthefuture.models;
 public class User {
     private String email;
     private String session;
+    private String password;
     private int coins;
+
+    public String getPassword() {
+        return password;
+    }
 
     public int getCoins() {
         return coins;
@@ -30,5 +35,9 @@ public class User {
 
     public void setSession(String session) {
         this.session = session;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

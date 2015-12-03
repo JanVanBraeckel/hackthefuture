@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.gebruiker.hackthefuture.REST.services.UserManager;
-import com.example.gebruiker.hackthefuture.models.User;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        int caps = getResources().getIdentifier("nuka_cola","drawable", getPackageName());
+        int caps = getResources().getIdentifier("nuka_cola", "drawable", getPackageName());
 
 
         Glide.with(this)
@@ -55,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
                         view.setBackgroundDrawable(background);
                     }
                 });
-Glide.with(this).load(caps).fitCenter().into(img);
+        Glide.with(this).load(caps).fitCenter().into(img);
         numberOfCoins.setText(String.valueOf(userManager.getUser().getCoins()));
     }
 
     @OnClick(R.id.btnCategories)
-    public void btnCategoriesClick(View v){
+    public void btnCategoriesClick(View v) {
         Intent intent = new Intent(this, CategoryActivity.class);
         startActivity(intent);
     }
