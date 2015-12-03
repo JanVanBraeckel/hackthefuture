@@ -82,7 +82,7 @@ public class ItemDetail extends AppCompatActivity {
         Glide.with(this)
                 .load(logo_app)
                 .centerCrop()
-                .override(400,400)
+                .override(500,500)
                 .into(boy);
 
         mItemDescription.setText(item.getDescription());
