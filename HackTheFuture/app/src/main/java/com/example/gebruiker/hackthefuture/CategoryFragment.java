@@ -27,7 +27,6 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.example.gebruiker.hackthefuture.REST.services.CategoryManager;
 import com.example.gebruiker.hackthefuture.models.Category;
 import com.example.gebruiker.hackthefuture.models.Item;
-import com.squareup.picasso.Picasso;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

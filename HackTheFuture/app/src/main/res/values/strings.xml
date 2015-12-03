@@ -24,5 +24,12 @@
     <string name="numberOfCoins">Amount you can spend:</string>
     <string name="goShopping">Go shopping</string>
     <string name="goInventory">Check inventory</string>
+    <string name="item">Item:</string>
+    <string name="stock">Stock:</string>
+    <string name="cost">Cost:</string>
+    <string name="descr">Description:</string>
+    <string name="amountInv">Amount in inventory:</string>
+    <string name="buy">Buy this beauty</string>
+    <string name="buyfive">Buy five of these beauties</string>
 
 </resources>

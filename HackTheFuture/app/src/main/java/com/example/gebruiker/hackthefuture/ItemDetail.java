@@ -4,10 +4,14 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import android.widget.ImageView;
 import android.view.View;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gebruiker.hackthefuture.REST.services.CategoryManager;
 import com.example.gebruiker.hackthefuture.REST.services.UserManager;
 import com.example.gebruiker.hackthefuture.models.Item;
@@ -33,11 +37,16 @@ public class ItemDetail extends AppCompatActivity {
     @Bind(R.id.itemValue)
     TextView mItemValue;
 
+
+    @Bind(R.id.boy)
+    ImageView boy;
+
     @Bind(R.id.itemDescription)
     TextView mItemDescription;
 
     @Bind(R.id.itemInInventory)
     TextView mItemInInventory;
+
 
     @Override
     protected void onCreate(Bundle bundleCreate) {
@@ -64,6 +73,18 @@ public class ItemDetail extends AppCompatActivity {
         mItemName.setText(item.getName());
         mItemStock.setText(String.valueOf(item.getCount()));
         mItemValue.setText(String.valueOf(item.getValue()));
+
+        setTitle(item.getName());
+
+        int logo_app = getResources().getIdentifier("boy","drawable", getPackageName());
+
+
+        Glide.with(this)
+                .load(logo_app)
+                .centerCrop()
+                .override(500,500)
+                .into(boy);
+
         mItemDescription.setText(item.getDescription());
         mItemInInventory.setText(String.valueOf(item.getInInventory()));
     }
@@ -109,6 +130,7 @@ public class ItemDetail extends AppCompatActivity {
 
     private String getItemId(){
         return item.getId();
+
     }
 
     private class FetchItemDetailsTask extends AsyncTask<Void, Void, Boolean>{
