@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.gebruiker.hackthefuture.REST.services.CategoryManager;
@@ -39,8 +40,11 @@ public class CategoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         categoryManager = CategoryManager.getInstance(getApplicationContext());
-        
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         new FetchCategoriesTask().execute();
     }
@@ -50,7 +54,11 @@ public class CategoryActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         //adapter.addFragment(new RecipeListFragment(), getString(R.string.category_cooking));
         for(Category cat : categories){
-           // adapter.addFragment(new CategoryFragment(cat), cat.getName());
+            CategoryFragment categoryFragment = new CategoryFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("category", cat);
+            categoryFragment.setArguments(bundle);
+            adapter.addFragment(categoryFragment, cat.getName());
         }
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
