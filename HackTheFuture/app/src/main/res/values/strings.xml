@@ -5,13 +5,15 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">Enter vault</string>
+    <string name="action_sign_in_short">Enter vault</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="action_register">Register</string>
+    <string name="action_register">Get pass</string>
     <string name="notAuthorized">Not authorized</string>
     <string name="error500">Internal server error</string>
+    <string name="welkom">Welcome wanderer</string>
+    <string name="enterVault">Enter the Virtual Vault</string>
 </resources>
