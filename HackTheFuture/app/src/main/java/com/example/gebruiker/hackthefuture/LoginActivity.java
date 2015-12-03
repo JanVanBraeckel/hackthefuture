@@ -1,36 +1,36 @@
 package com.example.gebruiker.hackthefuture;
 
-<<<<<<< HEAD
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-=======
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
->>>>>>> 6af1e322f799a44f96f4c6ca62dd4a96f52d1080
+
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
+
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
->>>>>>> 6af1e322f799a44f96f4c6ca62dd4a96f52d1080
+
 import android.view.View;
 import android.widget.EditText;
-<<<<<<< HEAD
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-=======
+
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> 6af1e322f799a44f96f4c6ca62dd4a96f52d1080
+
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private class RegisterTask extends AsyncTask<String, Void, Boolean>{
+    private class RegisterTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {

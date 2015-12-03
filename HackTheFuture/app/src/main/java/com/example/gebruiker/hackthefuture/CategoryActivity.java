@@ -50,7 +50,7 @@ public class CategoryActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         //adapter.addFragment(new RecipeListFragment(), getString(R.string.category_cooking));
         for(Category cat : categories){
-            adapter.addFragment(new CategoryFragment(cat), cat.getName());
+           // adapter.addFragment(new CategoryFragment(cat), cat.getName());
         }
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
