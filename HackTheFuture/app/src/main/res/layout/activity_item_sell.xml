@@ -16,11 +16,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Welcome to the shop!" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,11 +24,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Item: " />
+                    android:text="Item: "
+                    android:textSize="20dp"
+                    android:layout_marginRight="12dp"/>
 
                 <TextView
                     android:id="@+id/itemName"
                     android:layout_width="wrap_content"
+                    android:textSize="20dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
@@ -43,10 +41,13 @@
                 <TextView
                     android:text="Description: "
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_marginRight="12dp"/>
                 <TextView
                     android:id="@+id/itemDescription"
                     android:layout_width="wrap_content"
+                    android:textSize="20dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -58,11 +59,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount in inventory: " />
+                    android:text="Amount in inventory: "
+                    android:textSize="20dp"
+                    android:layout_marginRight="12dp"/>
 
                 <TextView
                     android:id="@+id/itemInInventory"
                     android:layout_width="wrap_content"
+                    android:textSize="20dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -74,18 +78,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Value: " />
+                    android:text="Value: "
+                    android:textSize="20dp"
+                    android:layout_marginRight="12dp"/>
 
                 <TextView
                     android:id="@+id/itemValue"
                     android:layout_width="wrap_content"
+                    android:textSize="20dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <Button
                 android:text="Sell"
                 android:id="@+id/btnSell"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:textColor="@color/colorPrimary"
+                android:backgroundTint="@color/colorAccent"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
