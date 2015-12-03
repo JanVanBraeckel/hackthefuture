@@ -33,6 +33,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.gebruiker.hackthefuture.MainActivity" />
         </activity>
+        <activity android:name=".ItemDetail" >
+        </activity>
     </application>
 
 </manifest>

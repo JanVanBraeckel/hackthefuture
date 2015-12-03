@@ -1,9 +1,11 @@
 package com.example.gebruiker.hackthefuture.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Gebruiker on 03/12/2015.
  */
-public class Category {
+public class Category implements Serializable{
     private String id;
     private String name;
     private Icon icon;

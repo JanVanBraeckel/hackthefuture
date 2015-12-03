@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.gebruiker.hackthefuture.REST.FetchCategoriesRestMethod;
+import com.example.gebruiker.hackthefuture.REST.FetchItemsForCategoryRestMethod;
 import com.example.gebruiker.hackthefuture.REST.RegisterRestMethod;
 import com.example.gebruiker.hackthefuture.REST.SignInRestMethod;
 import com.example.gebruiker.hackthefuture.REST.framework.Request;
 import com.example.gebruiker.hackthefuture.models.Category;
+import com.example.gebruiker.hackthefuture.models.Item;
 import com.example.gebruiker.hackthefuture.models.User;
 
 import java.util.ArrayList;
@@ -55,5 +57,11 @@ public class CategoryManager {
 
     public List<Category> getCategories() {
         return new FetchCategoriesRestMethod(context).execute().getResource();
+    }
+
+    public List<Item> getItemsForCategory(String categoryId) {
+        FetchItemsForCategoryRestMethod method = new FetchItemsForCategoryRestMethod(context);
+        method.setCategoryId(categoryId);
+        return method.execute().getResource();
     }
 }

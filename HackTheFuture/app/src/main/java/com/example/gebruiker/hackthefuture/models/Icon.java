@@ -1,9 +1,11 @@
 package com.example.gebruiker.hackthefuture.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Gebruiker on 03/12/2015.
  */
-public class Icon {
+public class Icon implements Serializable{
     private String white, black;
 
     public String getBlack() {
