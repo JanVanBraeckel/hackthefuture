@@ -193,6 +193,7 @@ public class InventoryActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean success) {
             if(success){
+                if(items.size() != 0)
                 fillListview(recyclerView, items);
             }
         }
