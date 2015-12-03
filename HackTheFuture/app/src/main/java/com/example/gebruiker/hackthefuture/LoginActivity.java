@@ -29,6 +29,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.gebruiker.hackthefuture.REST.services.UserManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,8 +77,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private class AuthorizeTask extends AsyncTask<Void, Void, Boolean>{
-
-    }
+//    private class AuthorizeTask extends AsyncTask<Void, Void, Boolean>{
+//
+//    }
 }
 
