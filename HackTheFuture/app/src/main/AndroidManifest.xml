@@ -40,8 +40,16 @@
                 android:value="com.example.gebruiker.hackthefuture.CategoryActivity" />
         </activity>
         <activity android:name=".InventoryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gebruiker.hackthefuture.MainActivity" />
         </activity>
-        <activity android:name=".ItemSell" >
+        <activity android:name=".ItemSell"
+            android:label="Sell beloved items">
+            <meta-data
+
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gebruiker.hackthefuture.InventoryActivity" />
         </activity>
     </application>
 
