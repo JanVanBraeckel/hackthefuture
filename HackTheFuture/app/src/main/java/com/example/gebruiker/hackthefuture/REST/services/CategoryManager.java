@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.gebruiker.hackthefuture.REST.FetchCategoriesRestMethod;
+import com.example.gebruiker.hackthefuture.REST.FetchItemDetailsRestMethod;
 import com.example.gebruiker.hackthefuture.REST.FetchItemsForCategoryRestMethod;
 import com.example.gebruiker.hackthefuture.REST.RegisterRestMethod;
 import com.example.gebruiker.hackthefuture.REST.SignInRestMethod;
@@ -62,6 +63,12 @@ public class CategoryManager {
     public List<Item> getItemsForCategory(String categoryId) {
         FetchItemsForCategoryRestMethod method = new FetchItemsForCategoryRestMethod(context);
         method.setCategoryId(categoryId);
+        return method.execute().getResource();
+    }
+
+    public Item getItemDetails(String itemId) {
+        FetchItemDetailsRestMethod method = new FetchItemDetailsRestMethod(context);
+        method.setItemId(itemId);
         return method.execute().getResource();
     }
 }

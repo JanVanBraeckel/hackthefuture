@@ -10,6 +10,17 @@ public class Item implements Serializable{
     private String name;
     private int value;
     private int count;
+    private int inInventory;
+    private String description;
+
+
+    public int getInInventory() {
+        return inInventory;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public String getName() {
         return name;
@@ -41,5 +52,13 @@ public class Item implements Serializable{
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setInInventory(int inInventory) {
+        this.inInventory = inInventory;
     }
 }

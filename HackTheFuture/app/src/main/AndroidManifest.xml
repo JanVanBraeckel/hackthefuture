@@ -34,7 +34,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.gebruiker.hackthefuture.MainActivity" />
         </activity>
-        <activity android:name=".ItemDetail" >
+        <activity android:name=".ItemDetail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gebruiker.hackthefuture.CategoryActivity" />
         </activity>
     </application>
 

@@ -125,10 +125,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private class RegisterTask extends AsyncTask<String, Void, Boolean> {
 
+        private String email, password;
+
         @Override
         protected Boolean doInBackground(String... params) {
             try{
-                userManager.registerUser(params[0], params[1]);
+                email = params[0];
+                password = params[1];
+                userManager.registerUser(email, password);
                 return true;
             }catch(final Exception e){
                 runOnUiThread(new Runnable() {
@@ -144,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean success) {
             if(success){
-                Log.i("register", "registered");
+                new AuthorizeTask().execute(email, password);
             }
         }
     }
