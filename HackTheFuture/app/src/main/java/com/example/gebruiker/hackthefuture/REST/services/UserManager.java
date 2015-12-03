@@ -68,11 +68,7 @@ public class UserManager implements RequestSigner {
      */
     @Override
     public void authorize(Request request) {
-        // This shouldn't happen, a user can't log in without a token, but check for it anyway
-//        if (token == null)
-//            throw new IllegalArgumentException("Not yet signed in.");
-//
-//        // Add a bearer token to the Authorization header
+        // Add a bearer token to the Authorization header
         request.addHeader("Session", new ArrayList<>(Arrays.asList(new String[]{user.getSession()})));
     }
 
@@ -88,5 +84,11 @@ public class UserManager implements RequestSigner {
         SignInRestMethod signin = new SignInRestMethod(context);
         signin.setCredentials(email, password);
         user = signin.execute().getResource();
+    }
+
+    public void updateUser(double value, int amount) {
+        int coins  = user.getCoins();
+        int updatedCoins = (int) (coins - (value*amount));
+        user.setCoins(updatedCoins);
     }
 }

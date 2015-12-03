@@ -4,19 +4,25 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gebruiker.hackthefuture.REST.services.CategoryManager;
+import com.example.gebruiker.hackthefuture.REST.services.UserManager;
 import com.example.gebruiker.hackthefuture.models.Item;
+
+import org.w3c.dom.Text;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ItemDetail extends AppCompatActivity {
 
     private Item item;
     private CategoryManager categoryManager;
+    private UserManager userManager;
 
     @Bind(R.id.itemName)
     TextView mItemName;
@@ -27,6 +33,12 @@ public class ItemDetail extends AppCompatActivity {
     @Bind(R.id.itemValue)
     TextView mItemValue;
 
+    @Bind(R.id.itemDescription)
+    TextView mItemDescription;
+
+    @Bind(R.id.itemInInventory)
+    TextView mItemInInventory;
+
     @Override
     protected void onCreate(Bundle bundleCreate) {
         super.onCreate(bundleCreate);
@@ -35,6 +47,7 @@ public class ItemDetail extends AppCompatActivity {
         ButterKnife.bind(this);
 
         categoryManager = CategoryManager.getInstance(getApplicationContext());
+        userManager = UserManager.getInstance(getApplicationContext());
 
         Bundle bundle = getIntent().getExtras();
 
@@ -45,10 +58,57 @@ public class ItemDetail extends AppCompatActivity {
         new FetchItemDetailsTask(item).execute();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    private void fillShop(Item item){
         mItemName.setText(item.getName());
         mItemStock.setText(String.valueOf(item.getCount()));
         mItemValue.setText(String.valueOf(item.getValue()));
+        mItemDescription.setText(item.getDescription());
+        mItemInInventory.setText(String.valueOf(item.getInInventory()));
+    }
+
+    @OnClick(R.id.btnBuy)
+    public void btnBuyClicked(View v){
+        new BuyItemTask().execute(1);
+    }
+
+    @OnClick(R.id.btnBuyFive)
+    public void btnBuyFiveClicked(View v){
+        new BuyItemTask().execute(5);
+    }
+
+    private class BuyItemTask extends AsyncTask<Integer, Void, Boolean>{
+
+        private Item item;
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+            try{
+                item = categoryManager.buyItem(getItemId(), params[0]);
+                userManager.updateUser(item.getValue(), params[0]);
+                return true;
+            }catch(final Exception e){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(success){
+                fillShop(item);
+            }
+        }
+    }
+
+    private String getItemId(){
+        return item.getId();
     }
 
     private class FetchItemDetailsTask extends AsyncTask<Void, Void, Boolean>{
@@ -78,7 +138,7 @@ public class ItemDetail extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean success) {
             if(success){
-                Log.i("success", item.getDescription());
+                fillShop(item);
             }
         }
     }

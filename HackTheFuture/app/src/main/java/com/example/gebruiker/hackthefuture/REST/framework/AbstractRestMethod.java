@@ -20,7 +20,6 @@ import java.util.Map;
 public abstract class AbstractRestMethod<T> implements RestMethod<T> {
 
     private static final String DEFAULT_ENCODING = "UTF-8";
-    private String locale;
 
     /**
      * Template method for executing a Rest Method
@@ -28,9 +27,6 @@ public abstract class AbstractRestMethod<T> implements RestMethod<T> {
      * @return returns a {@link RestMethodResult} of a certain type
      */
     public RestMethodResult<T> execute() {
-        // Fetch the current locale of the system
-        setLocale();
-
         // Let our sub class build a request
         Request request = buildRequest();
 
@@ -41,38 +37,11 @@ public abstract class AbstractRestMethod<T> implements RestMethod<T> {
             signer.authorize(request);
         }
 
-        // Add the Accept Language header
-        request.addHeader("Accept-Language", Arrays.asList(locale));
-
         // Gets the response after executing the request
         Response response = doRequest(request);
 
         // Build the result and return the RestMethodResult<T>
         return buildResult(response);
-    }
-
-    /**
-     * Fetches the current locale of our system.
-     * This is called for every request since the system language could be changed at runtime.
-     */
-    private void setLocale() {
-        // Get the locale
-        Locale locale = getContext().getResources().getConfiguration().locale;
-
-        // Get the abbreviation of the language
-        String lang = locale.getLanguage();
-        switch (lang) {
-            case "nl":
-            default:
-                this.locale = "nl-BE";
-                return;
-            case "en":
-                this.locale = "en-GB";
-                return;
-            case "fr":
-                this.locale = "fr-FR";
-                return;
-        }
     }
 
     protected abstract Context getContext();

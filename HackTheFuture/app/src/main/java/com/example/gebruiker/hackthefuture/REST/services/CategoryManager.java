@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.gebruiker.hackthefuture.REST.BuyItemRestMethod;
 import com.example.gebruiker.hackthefuture.REST.FetchCategoriesRestMethod;
 import com.example.gebruiker.hackthefuture.REST.FetchItemDetailsRestMethod;
 import com.example.gebruiker.hackthefuture.REST.FetchItemsForCategoryRestMethod;
@@ -70,5 +71,13 @@ public class CategoryManager {
         FetchItemDetailsRestMethod method = new FetchItemDetailsRestMethod(context);
         method.setItemId(itemId);
         return method.execute().getResource();
+    }
+
+    public Item buyItem(String itemId, Integer amount) {
+        BuyItemRestMethod method = new BuyItemRestMethod(context);
+        method.setItemId(itemId);
+        method.setAmount(amount);
+        method.execute();
+        return getItemDetails(itemId);
     }
 }

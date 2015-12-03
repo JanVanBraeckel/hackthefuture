@@ -18,34 +18,23 @@ import java.util.Arrays;
 /**
  * Created by Gebruiker on 03/12/2015.
  */
-public class SignInRestMethod extends AbstractRestMethod<User> {
-    private static final URI TOKENURI = URI.create("http://cloud.cozmos.be:2400/api/users/login");
+public class BuyItemRestMethod extends AbstractRestMethod<Void>{
     private Context context;
-    private String email;
-    private String password;
+    private String itemId;
+    private Integer amount;
 
-    public SignInRestMethod(Context context) {
+    public BuyItemRestMethod(Context context) {
         this.context = context.getApplicationContext();
     }
 
-    /**
-     * Overwrite the hook {@link AbstractRestMethod#requiresAuthorization()} as logging in obviously doesn't require authorization
-     *
-     * @return indicator whether to authenticate the request
-     */
     @Override
-    protected boolean requiresAuthorization() {
-        return false;
+    protected Void parseResponseBody(String responseBody) throws Exception {
+        return null;
     }
 
     @Override
     protected Context getContext() {
         return context;
-    }
-
-    public void setCredentials(String email, String password) {
-        this.email = email;
-        this.password = password;
     }
 
     /**
@@ -56,35 +45,17 @@ public class SignInRestMethod extends AbstractRestMethod<User> {
     @Override
     protected Request buildRequest() {
         try {
-            String authHeader = Base64.encodeToString((email + ":" + password).getBytes(), Base64.DEFAULT);
-            Request r = new Request(RestMethodFactory.Method.POST, TOKENURI, new byte[]{});
+            URI REQURI = URI.create("http://cloud.cozmos.be:2400/api/buy");
+            JSONObject body = new JSONObject();
+            body.put("item", itemId);
+            body.put("count", amount);
+
+            Request r = new Request(RestMethodFactory.Method.PUT, REQURI, body.toString().getBytes());
             r.addHeader("Content-Type", new ArrayList<>(Arrays.asList("application/json")));
-            r.addHeader("Authorization", new ArrayList<>(Arrays.asList("Bearer " + authHeader)));
             return r;
         } catch (Exception ex) {
             throw new IllegalArgumentException("Cannot build request see nested exception.", ex);
         }
-    }
-
-    /**
-     * Parses the response body
-     *
-     * @param responseBody JSON string returned by the server
-     * @return {@link Token} obtained by server
-     * @throws Exception
-     */
-    @Override
-    protected User parseResponseBody(String responseBody) throws Exception {
-        User user = new User();
-        JSONObject jsonObject = new JSONObject(responseBody);
-        if(jsonObject.has("session")){
-            user.setSession(jsonObject.getString("session"));
-        }
-        if(jsonObject.has("myCoins")){
-            user.setCoins(jsonObject.getInt("myCoins"));
-        }
-        user.setPassword(password);
-        return user;
     }
 
     /**
@@ -101,5 +72,13 @@ public class SignInRestMethod extends AbstractRestMethod<User> {
             throw new Exception(jsonObject.getString("message"));
         }
         throw new Exception("Something went wrong");
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 }
