@@ -15,4 +15,6 @@
     <string name="notAuthorized">Not authorized</string>
     <string name="error500">Internal server error</string>
     <string name="longerThan6">Password must be at least 6 characters</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_category">CategoryActivity</string>
 </resources>

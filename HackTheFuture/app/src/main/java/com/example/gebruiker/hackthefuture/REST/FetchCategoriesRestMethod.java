@@ -3,29 +3,29 @@ package com.example.gebruiker.hackthefuture.REST;
 import android.content.Context;
 import android.util.Base64;
 
-import com.example.gebruiker.hackthefuture.R;
 import com.example.gebruiker.hackthefuture.REST.framework.AbstractRestMethod;
 import com.example.gebruiker.hackthefuture.REST.framework.Request;
 import com.example.gebruiker.hackthefuture.REST.framework.RestMethodFactory;
+import com.example.gebruiker.hackthefuture.models.Category;
+import com.example.gebruiker.hackthefuture.models.Icon;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Gebruiker on 03/12/2015.
  */
-public class RegisterRestMethod extends AbstractRestMethod<Void>{
-    private static final URI REQURL = URI.create("http://cloud.cozmos.be:2400/api/users/register");
+public class FetchCategoriesRestMethod extends AbstractRestMethod<List<Category>>{
+    private static final URI REQURL = URI.create("http://cloud.cozmos.be:2400/api/categories");
     private Context context;
     private String email, password;
 
-    private RegisterRestMethod(Context context) {
+    public FetchCategoriesRestMethod(Context context) {
         this.context = context;
     }
 
@@ -41,13 +41,7 @@ public class RegisterRestMethod extends AbstractRestMethod<Void>{
     @Override
     protected Request buildRequest() {
         try {
-            JSONObject json = new JSONObject();
-
-            json.put("email", email);
-            json.put("password", Base64.encodeToString(password.getBytes(), Base64.DEFAULT));
-
-            Request r = new Request(RestMethodFactory.Method.POST, REQURL, json.toString().getBytes());
-            r.addHeader("Content-Type", Arrays.asList("application/json"));
+            Request r = new Request(RestMethodFactory.Method.GET, REQURL, new byte[]{});
             return r;
 
         } catch (Exception ex) {
@@ -64,8 +58,23 @@ public class RegisterRestMethod extends AbstractRestMethod<Void>{
      * @throws Exception
      */
     @Override
-    protected Void parseResponseBody(String responseBody) throws Exception {
-        return null;
+    protected List<Category> parseResponseBody(String responseBody) throws Exception {
+        JSONArray jsonArray = new JSONArray(responseBody);
+        List<Category> categories = new ArrayList<>();
+
+        for(int i = 0; i < jsonArray.length(); i++){
+            JSONObject row = jsonArray.getJSONObject(i);
+            Category category = new Category();
+            Icon icon = new Icon();
+            category.setId(row.getString("id"));
+            category.setName(row.getString("name"));
+            icon.setBlack(row.getJSONObject("icon").getString("black"));
+            icon.setWhite(row.getJSONObject("icon").getString("white"));
+            category.setIcon(icon);
+            categories.add(category);
+        }
+
+        return categories;
     }
 
     /**
@@ -90,37 +99,6 @@ public class RegisterRestMethod extends AbstractRestMethod<Void>{
      */
     @Override
     protected boolean requiresAuthorization() {
-        return false;
-    }
-
-    /**
-     * Internal Builder class to make building this request a bit easier
-     */
-    public static class Builder {
-        private Context context;
-        private String email;
-        private String password;
-
-        public Builder(Context context) {
-            this.context = context;
-        }
-
-        public Builder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public RegisterRestMethod build() {
-            RegisterRestMethod rrm = new RegisterRestMethod(context);
-            rrm.email = email;
-            rrm.password = password;
-            return rrm;
-        }
+        return true;
     }
 }
-

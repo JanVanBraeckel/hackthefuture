@@ -3,6 +3,7 @@ package com.example.gebruiker.hackthefuture;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gebruiker.hackthefuture.REST.services.UserManager;
 
@@ -78,22 +80,69 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.register)
     public void registerClicked(View v){
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
 
+        if(!email.equals("") && !password.equals("")){
+            if(password.length() < 6)
+                mPasswordView.setError(getString(R.string.longerThan6));
+            else{
+                new RegisterTask().execute(email, password);
+            }
+        }
     }
 
 
-    private class AuthorizeTask extends AsyncTask<String, Void, Boolean>{
+    private class RegisterTask extends AsyncTask<String, Void, Boolean>{
 
         @Override
         protected Boolean doInBackground(String... params) {
-            userManager.registerUser(params[0], params[1]);
-            return true;
+            try{
+                userManager.registerUser(params[0], params[1]);
+                return true;
+            }catch(final Exception e){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return false;
+            }
         }
 
         @Override
         protected void onPostExecute(Boolean success) {
             if(success){
+                Log.i("register", "registered");
+            }
+        }
+    }
 
+    private class AuthorizeTask extends AsyncTask<String, Void, Boolean>{
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try{
+                userManager.login(params[0], params[1]);
+                return true;
+            }catch(final Exception e){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(success){
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                LoginActivity.this.finish();
+                startActivity(intent);
             }
         }
     }
