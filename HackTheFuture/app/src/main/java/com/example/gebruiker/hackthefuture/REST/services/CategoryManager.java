@@ -6,9 +6,11 @@ import android.preference.PreferenceManager;
 
 import com.example.gebruiker.hackthefuture.REST.BuyItemRestMethod;
 import com.example.gebruiker.hackthefuture.REST.FetchCategoriesRestMethod;
+import com.example.gebruiker.hackthefuture.REST.FetchInventoryRestMethod;
 import com.example.gebruiker.hackthefuture.REST.FetchItemDetailsRestMethod;
 import com.example.gebruiker.hackthefuture.REST.FetchItemsForCategoryRestMethod;
 import com.example.gebruiker.hackthefuture.REST.RegisterRestMethod;
+import com.example.gebruiker.hackthefuture.REST.SellItemRestMethod;
 import com.example.gebruiker.hackthefuture.REST.SignInRestMethod;
 import com.example.gebruiker.hackthefuture.REST.framework.Request;
 import com.example.gebruiker.hackthefuture.models.Category;
@@ -77,6 +79,19 @@ public class CategoryManager {
         BuyItemRestMethod method = new BuyItemRestMethod(context);
         method.setItemId(itemId);
         method.setAmount(amount);
+        method.execute();
+        return getItemDetails(itemId);
+    }
+
+    public List<Item> fetchInventory() {
+        return new FetchInventoryRestMethod(context).execute().getResource();
+
+    }
+
+    public Item sellItem(String itemId, Integer param) {
+        SellItemRestMethod method = new SellItemRestMethod(context);
+        method.setItemId(itemId);
+        method.setAmount(param);
         method.execute();
         return getItemDetails(itemId);
     }

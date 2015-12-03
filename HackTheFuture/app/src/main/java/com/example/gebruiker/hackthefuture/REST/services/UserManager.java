@@ -91,4 +91,10 @@ public class UserManager implements RequestSigner {
         int updatedCoins = (int) (coins - (value*amount));
         user.setCoins(updatedCoins);
     }
+
+    public void updateUserSell(int value, Integer param) {
+        int coins = user.getCoins();
+        int updatedCoins = (int) (coins + (value * param));
+        user.setCoins(updatedCoins);
+    }
 }

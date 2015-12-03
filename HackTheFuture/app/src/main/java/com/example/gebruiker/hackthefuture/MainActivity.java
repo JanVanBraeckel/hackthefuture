@@ -61,4 +61,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.btnInventory)
+    public void btnInventoryClick(View v){
+        Intent intent = new Intent(this, InventoryActivity.class);
+        startActivity(intent);
+    }
 }
