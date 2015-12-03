@@ -19,7 +19,7 @@
 
     <string name="longerThan6">Password must be at least 6 characters</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_category">CategoryActivity</string>
+    <string name="title_activity_category">Shop</string>
     <string name="welkomVault">Welcome to the vault</string>
     <string name="numberOfCoins">Amount you can spend:</string>
     <string name="goShopping">Go shopping</string>

@@ -172,44 +172,21 @@ public class CategoryFragment extends Fragment {
                     }
                 });
 
-                byte[] decodedString = Base64.decode(category.getIcon().getWhite(), Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                byte[] decodedString = Base64.decode(category.getIcon().getBlack(), Base64.DEFAULT);
 
-                try{
-//                    File file = new File("path");
-//                    OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
-//                    decodedByte.compress(Bitmap.CompressFormat.JPEG, 100, os);
-//                    os.close();
-//
-//                    Picasso.with(holder.mImageView.getContext())
-//                            .load(file)
-//                            .centerCrop()
-//                            .into(holder.mImageView);
 
-                }catch(Exception e){
-                    throw new IllegalArgumentException(e.getMessage());
-                }
+
+                Glide.with( holder.mImageView.getContext()).load(decodedString).asBitmap().into(holder.mImageView);
+
 
             } else if (holderr instanceof Description) {
-                byte[] decodedString = Base64.decode(category.getIcon().getBlack(), Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                byte[] decodedString = Base64.decode(category.getIcon().getWhite(), Base64.DEFAULT);
+
 
                 final Description holder = (Description) holderr;
+                Glide.with( holder.mImageView.getContext()).load(decodedString).asBitmap().into(holder.mImageView);
                 holder.mTextView.setText(description);
-                try{
-//                    File file = new File("path");
-//                    OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
-//                    decodedByte.compress(Bitmap.CompressFormat.JPEG, 100, os);
-//                    os.close();
-//
-//                    Picasso.with(holder.mImageView.getContext())
-//                            .load(file)
-//                            .centerCrop()
-//                            .into(holder.mImageView);
 
-                }catch(Exception e){
-                    throw new IllegalArgumentException(e.getMessage());
-                }
             }
 
         }
