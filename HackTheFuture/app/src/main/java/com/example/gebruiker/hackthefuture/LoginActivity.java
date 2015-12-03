@@ -116,6 +116,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.hidden)
+    public void getText(View v){
+        mEmailView.setText("Solesurvivor@fallout.be");
+        mPasswordView.setText("helpme");
+    }
+
 
     private class RegisterTask extends AsyncTask<String, Void, Boolean> {
 
