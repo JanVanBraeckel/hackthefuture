@@ -14,4 +14,5 @@
     <string name="action_register">Register</string>
     <string name="notAuthorized">Not authorized</string>
     <string name="error500">Internal server error</string>
+    <string name="longerThan6">Password must be at least 6 characters</string>
 </resources>

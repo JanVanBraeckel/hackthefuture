@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.gebruiker.hackthefuture.REST.RegisterRestMethod;
 import com.example.gebruiker.hackthefuture.REST.framework.Request;
 
 import org.scribe.model.Token;
@@ -82,5 +83,13 @@ public class UserManager implements RequestSigner {
 
         // Add a bearer token to the Authorization header
         request.addHeader("Authorization", new ArrayList<String>(Arrays.asList(new String[]{"bearer " + token.getToken()})));
+    }
+
+    public void registerUser(String email, String password) {
+        new RegisterRestMethod.Builder(context)
+                .email(email)
+                .password(password)
+                .build()
+                .execute();
     }
 }

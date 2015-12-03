@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,7 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
 
         if(!email.equals("") && !password.equals("")){
-
+            if(password.length() < 6)
+                mPasswordView.setError(getString(R.string.longerThan6));
+            else{
+                new AuthorizeTask().execute(email, password);
+            }
         }
     }
 
@@ -77,8 +82,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-//    private class AuthorizeTask extends AsyncTask<Void, Void, Boolean>{
-//
-//    }
+    private class AuthorizeTask extends AsyncTask<String, Void, Boolean>{
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            userManager.registerUser(params[0], params[1]);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(success){
+
+            }
+        }
+    }
 }
 
