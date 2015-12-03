@@ -14,6 +14,12 @@
     <string name="action_register">Get pass</string>
     <string name="notAuthorized">Not authorized</string>
     <string name="error500">Internal server error</string>
+<<<<<<< HEAD
     <string name="welkom">Welcome wanderer</string>
     <string name="enterVault">Enter the Virtual Vault</string>
+=======
+    <string name="longerThan6">Password must be at least 6 characters</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_category">CategoryActivity</string>
+>>>>>>> 6af1e322f799a44f96f4c6ca62dd4a96f52d1080
 </resources>

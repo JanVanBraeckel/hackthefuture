@@ -4,34 +4,31 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.gebruiker.hackthefuture.REST.FetchCategoriesRestMethod;
 import com.example.gebruiker.hackthefuture.REST.RegisterRestMethod;
 import com.example.gebruiker.hackthefuture.REST.SignInRestMethod;
 import com.example.gebruiker.hackthefuture.REST.framework.Request;
+import com.example.gebruiker.hackthefuture.models.Category;
 import com.example.gebruiker.hackthefuture.models.User;
-
-import org.scribe.model.Token;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 
 /**
- * UserManager handles OAuth authentication with our REST API.
+ * Created by Gebruiker on 03/12/2015.
  */
-public class UserManager implements RequestSigner {
-
-    private User user;
-    private static UserManager instance;
+public class CategoryManager {
+    private static CategoryManager instance;
     private final SharedPreferences prefs;
     private Context context;
-    //private Token token;
 
     /**
      * Private constructor for the singleton class {@link UserManager}.
      *
      * @param context the applicationcontext which the {@link UserManager#getInstance(Context)} receives
      */
-    private UserManager(Context context) {
+    private CategoryManager(Context context) {
         // Fetches the shared preferences and assigns it to a variable
         prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         this.context = context;
@@ -45,9 +42,9 @@ public class UserManager implements RequestSigner {
      * @param context our applicationcontext which we use to determine the Accept-Language for requests and check for presence of existing access tokens.
      * @return returns an instance of itself
      */
-    public static UserManager getInstance(Context context) {
+    public static CategoryManager getInstance(Context context) {
         if (instance == null) {
-            instance = new UserManager(context);
+            instance = new CategoryManager(context);
 //            if (instance.checkToken())
 //                instance.loadToken();
         }
@@ -55,38 +52,8 @@ public class UserManager implements RequestSigner {
         return instance;
     }
 
-    public User getUser() {
-        if(user == null)
-            return null;
-        return user;
-    }
 
-    /**
-     * Authorizes a request to the server
-     *
-     * @param request Request going to the server
-     */
-    @Override
-    public void authorize(Request request) {
-        // This shouldn't happen, a user can't log in without a token, but check for it anyway
-//        if (token == null)
-//            throw new IllegalArgumentException("Not yet signed in.");
-//
-//        // Add a bearer token to the Authorization header
-        request.addHeader("Session", new ArrayList<>(Arrays.asList(new String[]{user.getSession()})));
-    }
-
-    public void registerUser(String email, String password) {
-        new RegisterRestMethod.Builder(context)
-                .email(email)
-                .password(password)
-                .build()
-                .execute();
-    }
-
-    public void login(String email, String password) {
-        SignInRestMethod signin = new SignInRestMethod(context);
-        signin.setCredentials(email, password);
-        user = signin.execute().getResource();
+    public List<Category> getCategories() {
+        return new FetchCategoriesRestMethod(context).execute().getResource();
     }
 }
